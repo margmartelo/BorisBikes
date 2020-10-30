@@ -1,6 +1,7 @@
 
 class DockingStation
   attr_reader :bicycles
+  @@CAPACITY = 20
   
   def initialize
     @bicycles = []
@@ -13,6 +14,8 @@ class DockingStation
   end
 
   def dock(bike)
+    raise StandardError.new("Station at capacity") if @bicycles.length >= @@CAPACITY
+
     @bicycles.push(bike)
   end
 
