@@ -7,6 +7,8 @@ class DockingStation
   end
 
   def release_bike
+    raise StandardError.new("No bike available") if @bicycles.empty?
+
     Bike.new
   end
 

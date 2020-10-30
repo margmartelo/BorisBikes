@@ -28,4 +28,9 @@ describe DockingStation do
     station.dock(bike)
     expect(station.bicycles).to include(bike)
   end
+
+  it "will throw an error if #release_bike called when no bikes in station" do
+    empty = DockingStation.new
+    expect { empty.release_bike }.to raise_error("No bike available")
+  end
 end
