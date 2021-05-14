@@ -3,12 +3,23 @@ require 'docking_station'
 describe DockingStation do 
     it { is_expected.to respond_to :release_bike }   
 
-    it "should release an instance of a Bike class when release_bike method is called" do
-        expect(subject.release_bike).to be_a(Bike)
+    describe '#release_bike' do
+       it "should release a bike" do
+          bike = Bike.new
+          subject.dock(bike)
+          expect(subject.release_bike).to eq bike
+       end
+
+
+       it "should raise an error if no bikes are docked at the station" do
+          station = DockingStation.new
+          expect { station.release_bike }.to raise_error("Sorry, there are no bikes available at the moment.")
+       end
+    
     end
 
     it "should release bikes that are working" do
-        bike = subject.release_bike
+        bike = Bike.new
         expect(bike.working?).to be true
     end 
 
@@ -21,6 +32,6 @@ describe DockingStation do
         subject.dock(bike)
         expect(subject.bike).to eq bike
     end
-    
+
 end
 
