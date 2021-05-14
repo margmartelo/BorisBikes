@@ -15,6 +15,12 @@ describe DockingStation do
     it "should allow to dock a bike to a docking station" do
         expect(subject).to respond_to(:dock).with(1).argument
     end
+
+    it "should allow to see docked bikes" do
+        bike = Bike.new
+        subject.dock(bike)
+        expect(subject.bike).to eq bike
+    end
     
 end
 
