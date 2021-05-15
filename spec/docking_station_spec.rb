@@ -5,9 +5,9 @@ describe DockingStation do
 
     describe '#release_bike' do
        it "should release a bike" do
-          bike = Bike.new
-          subject.dock(bike)
-          expect(subject.release_bike).to eq bike
+          subject.dock(Bike.new)
+          subject.release_bike
+          expect(subject.bikes.length).to eq 0
        end
 
 
@@ -28,15 +28,15 @@ describe DockingStation do
     end
 
     it "should allow to see docked bikes" do
-        bike = Bike.new
-        subject.dock(bike)
-        expect(subject.bike).to eq bike
+        subject.dock(Bike.new)
+        expect(subject.bikes.length).to eq 1
+        10.times { subject.dock Bike.new }
+        expect(subject.bikes.length).to eq 11   
     end
 
-    it "should raise an error in the case of a bike is already docked at the station" do 
-        bike = Bike.new
-        subject.dock(bike)
-        expect { subject.dock(bike) }.to raise_error("It's not possible to dock; station at maximum capacity.")
+    it "should raise an error in the case dock is at its maximum capacity" do 
+        20.times { subject.dock Bike.new }
+        expect { subject.dock(Bike.new) }.to raise_error("It's not possible to dock; station at maximum capacity.")
     end
 
 end
