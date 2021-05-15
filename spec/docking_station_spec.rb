@@ -33,5 +33,11 @@ describe DockingStation do
         expect(subject.bike).to eq bike
     end
 
+    it "should raise an error in the case of a bike is already docked at the station" do 
+        bike = Bike.new
+        subject.dock(bike)
+        expect { subject.dock(bike) }.to raise_error("It's not possible to dock; station at maximum capacity.")
+    end
+
 end
 
