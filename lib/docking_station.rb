@@ -24,6 +24,7 @@ class DockingStation
     end
 
     def empty?
-        @bikes.length == 0
+        @bikes.empty?
+        # #empty? is a method that can be used on strings, arrays, hashes and sets. It returns true if the instance of the object has a length of zero.
     end
 end
