@@ -34,8 +34,19 @@ describe DockingStation do
         expect(subject.bikes.length).to eq 11   
     end
 
+    it "should allow an user to set the capacity of a new station" do
+        station = DockingStation.new(40)
+        expect(station.capacity).to eq 40
+    end
+
+    it "should have a default capacity if none is set when a new station is created" do
+        station = DockingStation.new
+        expect(station.capacity).to eq DockingStation::DEFAULT_CAPACITY
+    end
+
+
     it "should raise an error in the case dock is at its maximum capacity" do 
-    DockingStation::DEFAULT_CAPACITY.times { subject.dock Bike.new }
+        subject.capacity.times { subject.dock Bike.new }
         expect { subject.dock(Bike.new) }.to raise_error("It's not possible to dock; station at maximum capacity.")
     end
 
