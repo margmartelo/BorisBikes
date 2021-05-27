@@ -29,10 +29,18 @@ describe DockingStation do
         expect(bike.broken?).to be false
     end 
 
-    it "should allow to dock a bike to a docking station" do
-        expect(subject).to respond_to(:dock).with(1).argument
+    it "should allow to dock a working bike to a docking station" do
+        bike = Bike.new
+        subject.dock(bike)
+        expect(subject.bikes).to include(bike) 
     end
     
+    it "should allow to dock a broken bike to a docking station" do
+        bike = Bike.new
+        bike.report_broken
+        subject.dock(bike)
+        expect(subject.bikes).to include(bike) 
+    end
 
     it "should allow to see docked bikes" do
         subject.dock(Bike.new)
