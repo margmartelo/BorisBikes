@@ -3,7 +3,7 @@ require_relative 'bike'
 class DockingStation
   
     attr_reader :bikes
-    attr_accessor :capacity
+    attr_accessor :capacity 
     DEFAULT_CAPACITY = 20
 
     def initialize(capacity=DEFAULT_CAPACITY)
@@ -12,8 +12,15 @@ class DockingStation
     end
 
     def release_bike
-        fail "Sorry, there are no bikes available at the moment." if empty?
-        @bikes.pop 
+        if empty?
+            raise StandardError.new "Sorry, there are no bikes available at the moment." 
+        elsif new_bike = @bikes.pop
+           if new_bike.broken?
+              raise StandardError.new "Sorry, there are no bikes available at the moment."
+           else
+              new_bike 
+           end
+        end
     end
 
     def dock(bike)
@@ -28,6 +35,5 @@ class DockingStation
 
     def empty?
         @bikes.empty?
-        # #empty? is a method that can be used on strings, arrays, hashes and sets. It returns true if the instance of the object has a length of zero.
     end
 end
