@@ -12,15 +12,10 @@ class DockingStation
     end
 
     def release_bike
-        if empty?
-            raise StandardError.new "Sorry, there are no bikes available at the moment." 
-        elsif new_bike = @bikes.pop
-           if new_bike.broken?
-              raise StandardError.new "Sorry, there are no bikes available at the moment."
-           else
-              new_bike 
-           end
-        end
+        fail "Sorry, there are no bikes available at the moment." if empty?
+        new_bike = @bikes.pop
+        fail "Sorry, there are no bikes available at the moment." if new_bike.broken?
+        new_bike
     end
 
     def dock(bike)
